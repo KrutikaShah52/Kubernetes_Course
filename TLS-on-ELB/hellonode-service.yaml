@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hellonode-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:us-east-1:454143665149:certificate/5db348bd-f8a9-4f20-aabf-109eb5b4ee19
+"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "http"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout: "60"
+    service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "evironment=dev,app=hellonode"
+spec:
+  ports:
+  - name: http 
+    port: 80
+    targetPort: nodejs-port
+    protocol: TCP
+  - name: https
+    port: 443
+    targetPort: nodejs-port
+    protocol: TCP
+  selector:
+    app: hellonode
+  type: LoadBalancer

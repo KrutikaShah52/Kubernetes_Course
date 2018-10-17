@@ -1,0 +1,49 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: hpa-example
+spec: 
+  replicas: 1
+  template:
+    metadata:
+      labels: 
+        apps: hpa-example
+    spec: 
+      containers: 
+      - name: hpa-example
+        image: krutika1052/autoscaalingdemo
+        ports:
+        - containerPort: 5000
+          hostPort: 5000
+        resources:
+          requests:
+            cpu: 200m
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hpa-example
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector: 
+    app: hpa-example
+  type: LoadBalancer
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-example-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1beta2
+    kind: Deployment
+    name: hpa-example
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 10

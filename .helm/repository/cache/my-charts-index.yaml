@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  demo-chart:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2018-10-15T13:25:32.739088882Z
+    description: A Helm chart for Kubernetes
+    digest: 18be100e8b1d6d7016c80bc71ccf67cfa328672233ba0d2b2b88f477b2c79003
+    name: demo-chart
+    urls:
+    - s3://helm-nd5a0qsl/charts/demo-chart-0.1.0.tgz
+    version: 0.1.0
+generated: 2018-10-15T13:23:50.029699455Z

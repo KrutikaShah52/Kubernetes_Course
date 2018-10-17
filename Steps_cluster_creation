@@ -1,0 +1,84 @@
+1. Create EC2 instance with http, https and ssh protocol
+2. Check Subnet related your ec2's vpc
+        -- eu-west-1c
+        -- eu-west-1b
+3. Create IAM role and attached it with the ec2 instance
+4. ssh into the instance
+
+5. Go to route53 
+    - create one hosted zone with .com postfix
+
+6. Go to s3 
+    - create one bucket 
+
+7. install kubectl 
+    -- curl -O https://storage.googleapis.com/kubernetes-release/release/v1.8.4/bin/linux/amd64/kubectl
+    -- chmod +x kubectl
+    -- sudo mv kubectl /usr/local/bin/kubectl
+    -- kubectl --help 
+    
+8. install kops
+    -- curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64 
+    -- chmod +x kops-linux-amd64 
+    -- sudo mv kops-linux-amd64 /usr/local/bin/kops
+    -- kops --help  
+9. local:scp -i key.pem key.pem ec2-user@ip:~/    (local to instance transfer the key)
+   server:chmod 400 to key.pem
+          ssh-keygen -y -f private_key1.pem > public_key1.pub (make it pub)
+
+10. export KOPS_STATE_STORE=s3://kube-cluster-learning
+11. export NAME=cluster1.learning-kubernetes.com
+
+12. kops create cluster \
+    --state s3://kube-cluster-learning \
+    --cloud-labels "env=dev" \  
+    --cloud aws \
+    --dns private \
+    --dns-zone ZJ5YDSR106XMG \
+    --master-count 1 \
+    --master-size t2.micro \
+    --master-zones eu-west-1a \
+    --networking flannel \
+    --node-count 2 \
+    --node-size t2.micro \
+    --zones eu-west-1c,eu-west-1b \
+    --vpc vpc-289fa74c \
+    --ssh-public-key=/home/ec2-user/kube-cluster.pub \ 
+    ${NAME}
+
+    Suggestions:
+    * list clusters with: kops get cluster
+    * edit this cluster with: kops edit cluster cluster1.kube-cluster.com
+    * edit your node instance group: kops edit ig --name=cluster1.kube-cluster.com nodes
+    * edit your master instance group: kops edit ig --name=cluster1.kube-cluster.com master-eu-west-1a
+
+    Finally configure your cluster with: 
+
+13. run: kops update cluster cluster1.kube-cluster.com --yes (for update cluster)
+14. kops validate cluster
+15. check: route53 hosted zone's logs
+       s3 bucket create folder for cluster  
+       ec2 instances master and node created
+
+16.  kops delete cluster --state=s3://learning-kubernetes --name=cluster1.learning-kubernetes.com --yes
+
+kops create cluster --state s3://kube-cluster-learning --cloud-labels "env=dev" --cloud aws --dns private --dns-zone Z17I819PI7AEGI --master-count 1 --master-size t2.micro --master-zones ap-south-1a --networking flannel --node-count 2 --node-size t2.micro --zones ap-south-1a,ap-south-1b --vpc vpc-3973fe50 --subnets subnet-e3e72aae,subnet-5f29a636 --dry-run=true --output yaml --ssh-public-key=/home/ec2-user/kube-cluster.pub --name cluster1.kube-cluster.com
+
+
+kops create cluster \
+--state s3://kubernetes-learning-bucket \
+--cloud-labels "env=dev" \
+--cloud aws \
+--dns private \
+--dns-zone Z253F9TZMTHC1R \
+--master-count 1 \
+--master-size t2.micro \
+--master-zones us-east-1a \
+--networking flannel \
+--node-count 1 \
+--node-size t2.micro \
+--zones us-east-1b,us-east-1c \
+--vpc vpc-6ca5cd0a \
+--subnets subnet-30e6bd1d,subnet-031e154a,subnet-903d6ccb \
+--ssh-public-key=/home/ec2-user/learning-kubernetes.pub \
+${NAME}

@@ -1,0 +1,21 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: helloword-deployment
+  namespace: myspace
+spec: 
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: helloworld
+  template: 
+    metadata: 
+      labels:
+        app: helloworld
+    spec: 
+      containers: 
+      - name: k8s-demo
+        image: krutikashah1052/hello_node
+        ports: 
+        - name: noejs-port
+          containerPort: 8081 
