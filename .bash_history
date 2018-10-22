@@ -1,63 +1,3 @@
-cd 
-ls
-cd namespace/
-ls
-exit
-ls
-cd wordpress/
-ls
-vim wordpress-single-deployment-no-volumes.yaml 
-vim wordpress-service.yaml 
-vim wordpress-single-deployment-no-volumes.yaml 
-kubectl get deployment
-kubectl create -f wordpress-single-deployment-no-volumes.yaml 
-kubectl get pods
-kubectl get pods --namespace=myspace
-kubectl getdeploy --namespace=myspace
-kubectl get deploy --namespace=myspace
-kubectl delete deploy helloword-deployment
-kubectl delete deploy helloword-deployment --namespcae=myspace
-kubectl delete deploy --namespace=myspace
-kubectl delete deploy --all helloword-deployment
-kubectl delete deploy --all helloword-deployment --namespace=myspace
-kubectl delete deployment --all helloword-deployment --namespace=myspace
-kubectl get deploy --namespace=myspace
-kubectl delete deplyment/helloword-deployment --namespace=myspace
-kubectl delete deployment/helloword-deployment --namespace=myspace
-kubectl get deploy --namespace=myspace
-kubectl delete deployment/helloword-deployment --namespace=myspace
-kubectl delete deployment/helloworld-deployment --namespace=myspace
-kubectl get pods
-kubectl get pods --namespace=myspace
-kubectl get pods
-kubectl describe pod wordpress-deployment-55b76d7746-xxjps
-kubectl config view
-cd ..
-ls
-cd  autoscaling/
-ls
-vim hpa-example.yaml 
-kubectl get deployment
-kubectl delete deployment wordpress-deployment
-kubectl get svc
-kubectl delete svc/hpa-example
-kubectl create -f hpa-example.yaml 
-kubectl get pods
-kubectl describe hpa-example-6c7bc76cf9-9njsc
-kubectl describe pods hpa-example-6c7bc76cf9-9njsc
-kubectl describe hpa-example-6c7bc76cf9-9njsc
-kubectl get pods
-kubectl describe pods hpa-example-6c7bc76cf9-lnj9m
-kubectl get deployments
-kubectl delete deployment hpa-example
-kubectl get svc
-kubectl delete svc/hoa-example
-kubectl delete svc/hpa-example
-kubectl get hpa
-kubectl delete hpa hpa-example-autoscaler
-kubectl get pods
-cd ..
-ls 
 cd namespace/
 ls
 vim resourcequota.yaml 
@@ -998,3 +938,63 @@ git push origin master
 cd jenkins/
 nano Jenkinsfile.build 
 y
+ls
+cd app
+ls
+cat hellonode-service.yaml.yaml 
+rm hellonode-service.yaml.yaml 
+ls
+cat pod.yaml 
+cd ..
+ls
+cd key/
+ls
+cd ..
+ls
+cd namespace/
+ls
+cd ..
+cat sample-user.yaml 
+kubectl get serviceaccount 
+kubectl get namspace
+kubectl get namespace
+kubctl get all
+kubectl get all
+kubectl get services -o wide
+ls
+kubectl get all
+kubectl get svc/jenkins
+kubectl get svc/jenkins -o wide
+kubectl describe deploy/jenkins
+printf $(kubectl get secret --namespace default jenkins -o jsonpath="{.data.jenkins-admin-password}" | base64 --decode);echo
+export SERVICE_IP=$(kubectl get svc --namespace default jenkins --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}")
+echo http://$SERVICE_IP:8080/login
+pwd
+ls
+nano Steps\ Create\ Cluster 
+mv helm-v2.9.1-linux-amd64.tar.gz linux-amd64/ /home
+ls
+pwd
+cd ..
+ls
+sudo su
+cd ec2-user/
+ls
+mv deployment\ steps README.md
+ls
+mv Steps\ Create\ Cluster Steps_cluster_creation
+ls
+git init
+git add .
+git commit -m "first commit"
+git remote add origin https://github.com/KrutikaShah52/Kubernetes_Course.git
+git push -u origin master
+kubectl get all
+kubectl get servcies -o wide
+kubectl get svc -o wide
+kubectl get deployment 
+kubectl get pods 
+kubectl get hpa
+kubectl get serviceaccount
+kubctl get namespace
+kubectl get namespace

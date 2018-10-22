@@ -1,3 +1,5 @@
+Kubernetes Course Content:
+Helm folder content are stored in KrutikaShah52/Helm_repo_Jenkins repository.
 1. install docker on admin server
     - sudo yum install docker
     - sudo scp -i learning-kubernetes.pem Steps\ Create\ Cluster ec2-user@54.159.7.25:/home/ec2-user/. (scp command)
